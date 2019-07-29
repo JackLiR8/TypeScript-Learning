@@ -1,4 +1,22 @@
-// ................................ 基础数据类型 ......................
+/*  
+    基础类型:
+        1. boolean
+        2. number
+        3. string
+        4. 数组 Array
+        5. 元组 Tuple
+        6. 枚举 enum
+        7. Any
+        8. Void
+        9. Null , undefined
+        10. Never
+        11. Object
+    
+    类型断言：
+        <string>value
+        value as string
+
+ ................................ 基础数据类型 ...................... */
 // 1. 布尔值 boolean
 let isDone: boolean = true;
 
