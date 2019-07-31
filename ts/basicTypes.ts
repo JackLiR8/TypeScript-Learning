@@ -47,7 +47,6 @@ tuple = ['hello', 1];
 // tuple = [1,'hello']  报错 
 console.log(tuple[0].charAt(1))     // e
 
-// 当访问一个越界的元素，会使用联合类型替代
 // tuple[1].subStr;         // 报错  数字没有 subStr 方法
 // console.log(tuple[2].toString())     // 报错 tuple 没有元素处于 [2] 的位置
 // tuple[2] = 'world'   报错 不能将 'world' 类型分配给 undefined
