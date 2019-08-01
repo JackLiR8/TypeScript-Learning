@@ -95,7 +95,8 @@
     interface Lengthwise {
         length: number;
     }
-
+    
+    // T 必须带有length 属性
     function len<T extends Lengthwise>(arg: T): T {
         console.log(arg.length)
         return arg
