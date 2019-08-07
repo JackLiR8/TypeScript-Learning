@@ -95,10 +95,21 @@ let ma1: ReadonlyStringArray = ['hello','TS']
     类静态部分与实例部分的区别
 
           类具有两个类型：静态部分的类型和实例的类型。 你会注意到，当你用构造器签名去定义
-        一个接口并试图定义一个类去实现这个接口时会得到一个错误。这里因为当一个类实现了一个
-        接口时，只对其实例部分进行类型检查。 constructor存在于类的静态部分，所以不在检查
-        的范围内。因此，我们应该直接操作类的静态部分。
-*/
+        一个接口并试图定义一个类去实现这个接口时会得到一个错误。*/
+        interface Demo {
+            new (hour: number, minute: number);
+        }
+
+        /* 
+            class DemoClass implements Demo {
+                constructor(hour: number, minute: number) {
+
+                }
+            } 
+        */
+
+    /* 这里因为当一个类实现了一个接口时，只对其实例部分进行类型检查。 constructor存在于类的
+    静态部分，所以不在检查的范围内。因此，我们应该直接操作类的静态部分。*/
         interface ClockConstructor {
             new (hour: number, minute: number): ClockInterface;
         }
