@@ -5,6 +5,7 @@
     id: number;
     parent_id: number | string;
     children?: OnTree[];
+    // [propName: string]: any;
   }
 
   const arr = [

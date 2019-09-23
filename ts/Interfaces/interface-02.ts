@@ -138,5 +138,3 @@ let ma1: ReadonlyStringArray = ['hello','TS']
         let analog = createClock(AnalogClock, 7, 32);
         digital.tick();
         analog.tick();
-
-
