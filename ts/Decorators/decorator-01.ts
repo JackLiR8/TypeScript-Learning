@@ -1,10 +1,16 @@
 /**
  * @file Decorators
+ * 
+ * 1. Class Decorators
+ * 2. Method Decorators
+ * 3. Accessor Decorators
+ * 4. Property Decorators
  */
 
 // ================= Class Decorators ===================
 /*  1. 类修饰符紧靠在类的前面声明，作用于类的constructor。
-    2. 类装饰器表达式会在运行时当作函数被调用，类的constructor会作为唯一参数 */
+    2. 类装饰器表达式会在运行时当作函数被调用，类的constructor会作为唯一参数
+    3. 如果类装饰器返回一个值，它会使用提供的构造函数来替换类的声明。 */
 
 // 例1
 function sealed(constructor: Function) {
@@ -72,7 +78,7 @@ class G3 {
   }
 }
 
-function enumerable(value) {
+function enumerable(value: boolean) {
   return function(
     traget: any, 
     propertyKey: string, 
@@ -86,3 +92,59 @@ let g3 = new G3('Decorators')
 for (const key in g3) {
   console.log('key:', key)  // greeting
 }
+
+// ==================== Accessor Decorators ====================
+/* 
+  1. 访问器装饰器作用于访问器描述符
+  2. TS 不允许同时装饰一个成员的 set 和 get    
+  3. 访问器装饰器表达式会在运行时当作函数被调用，传入下列3个参数：
+    a. 对于静态成员来说是类的构造函数，对于实例成员是类的原型对象。
+    b. 成员的名字。
+    c. 成员的属性描述符。
+
+  4. 如果访问器装饰器返回一个值，它会被用作方法的属性描述符
+*/
+
+class PointA {
+  constructor(
+    private _x: number,
+    private _y: number
+  ) { }
+  
+  @enumerable(false)
+  get x() { return this._x }
+  
+  @configurable(false)
+  get y() { return this._y }
+
+}
+
+function configurable(value: boolean) {
+  return function(
+    traget: any,
+    prop: string,
+    descriptor: PropertyDescriptor
+  ) {
+    descriptor.configurable = value
+  }
+}
+
+let pa = new PointA(2, 4)
+for (const key in pa) {
+  console.log('pa-key:', key)
+  // _x _y y
+}
+console.log(Object.keys(pa))  // [_x, _y]
+
+// ================= Property Decorators ===================
+/* 
+  属性装饰器表达式会在运行时当作函数被调用，传入下列2个参数：
+    1. 对于静态成员来说是类的构造函数，对于实例成员是类的原型对象。
+    2. 成员的名字。
+
+    注意  
+    属性描述符不会做为参数传入属性装饰器，这与TypeScript是如何初始化属性
+    装饰器的有关。 因为目前没有办法在定义一个原型对象的成员时描述一个实例
+    属性，并且没办法监视或修改一个属性的初始化方法。返回值也会被忽略。因此，
+    属性描述符只能用来监视类中是否声明了某个名字的属性。
+*/
